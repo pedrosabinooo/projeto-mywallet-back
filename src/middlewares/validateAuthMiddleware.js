@@ -1,8 +1,8 @@
 import { logInSchema, signUpSchema } from "../schemas/authSchema.js";
 
-export function validateSignIn(req, res, next) {
-  const {error} = logInSchema.validate(req.body);
-  if(error) {
+export function validateLogIn(req, res, next) {
+  const { error } = logInSchema.validate(req.body);
+  if (error) {
     return res.sendStatus(422); // unprocessable entity
   }
 
@@ -10,8 +10,8 @@ export function validateSignIn(req, res, next) {
 }
 
 export function validateSignUp(req, res, next) {
-  const {error} = signUpSchema.validate(req.body);
-  if(error) {
+  const { error } = signUpSchema.validate(req.body);
+  if (error) {
     return res.sendStatus(422); // unprocessable entity
   }
 

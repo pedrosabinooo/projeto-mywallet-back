@@ -1,8 +1,11 @@
-import {Router} from "express";
+import { Router } from "express";
 
-import {getUser} from "./../middlewares/userMiddleware.js";
+import { getUser } from "./../middlewares/userMiddleware.js";
 
-import {getTransactions, addTransaction} from "./../controllers/transactionsController.js";
+import {
+  getTransactions,
+  addTransaction,
+} from "./../controllers/transactionsController.js";
 
 const transactionRouter = Router();
 transactionRouter.use(getUser);
