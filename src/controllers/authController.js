@@ -14,11 +14,13 @@ export async function signUp(req, res) {
       password: passwordHash,
     });
 
-    return res.sendStatus(201); // created
+    res.sendStatus(201); // created
+    return;
   } catch (error) {
     console.log("Error creating new user.");
     console.log(error);
-    return res.sendStatus(500);
+    res.sendStatus(500);
+    return;
   }
 }
 
@@ -32,21 +34,27 @@ export async function logIn(req, res) {
     if (user && bcrypt.compareSync(req.body.password, user.password)) {
       const token = uuid();
       await db.collection("sessions").insertOne({ token, userId: user._id });
-      return res.send({ token, name: user.name });
+      res.send({ token, name: user.name });
+      return;
     }
 
-    return res.sendStatus(404); // not found
+    res.sendStatus(404); // not found
+    return;
   } catch (error) {
     console.log("Error recovering user.");
     console.log(error);
-    return res.sendStatus(500);
+    res.sendStatus(500);
+    return;
   }
 }
 
 export async function signOut(req, res) {
   const { authorization } = req.headers;
   const token = authorization?.replace("Bearer", "").trim();
-  if (!token) return res.send(403); // forbidden
+  if (!token) {
+    res.send(403);
+    return;
+  } // forbidden
 
   try {
     await db.collection("sessions").deleteOne({ token });
@@ -54,6 +62,7 @@ export async function signOut(req, res) {
   } catch (error) {
     console.log("Error logging out.");
     console.log(error);
-    return res.sendStatus(500);
+    res.sendStatus(500);
+    return;
   }
 }

@@ -4,10 +4,10 @@ export const signUpSchema = joi.object({
   name: joi.string().required(),
   email: joi.string().email().required(),
   password: joi.string().required(),
-  passwordConfirmation: joi.ref('password')
+  passwordConfirmation: joi.ref("password"),
 });
 
 export const logInSchema = joi.object({
   email: joi.string().email().required(),
-  password: joi.string().required()
+  password: joi.string().required(),
 });

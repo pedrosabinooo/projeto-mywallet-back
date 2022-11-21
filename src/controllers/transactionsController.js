@@ -15,15 +15,17 @@ export async function getTransactions(req, res) {
   } catch (error) {
     console.log("Error getting all financial transactions.");
     console.log(error);
-    return res.sendStatus(500);
+    res.sendStatus(500);
+    return;
   }
 }
 
 export async function addTransaction(req, res) {
   const { error } = transactionSchema.validate(req.body);
-  if (error)
-    return res.status(422).send(error.details.map((detail) => detail.message)); // unprocessable entity
-
+  if (error) {
+    res.status(422).send(error.details.map((detail) => detail.message)); // unprocessable entity
+    return;
+  }
   const { user } = res.locals;
   try {
     const { type, description, value } = req.body;
@@ -38,6 +40,7 @@ export async function addTransaction(req, res) {
   } catch (error) {
     console.log("Error adding new transaction.");
     console.log(error);
-    return res.sendStatus(500);
+    res.sendStatus(500);
+    return;
   }
 }

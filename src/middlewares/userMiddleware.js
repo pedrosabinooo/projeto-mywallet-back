@@ -18,6 +18,7 @@ export async function getUser(req, res, next) {
   } catch (error) {
     console.log("Error when trying to get user by session.");
     console.log(error);
-    return res.sendStatus(500);
+    res.sendStatus(500);
+    return;
   }
 }
